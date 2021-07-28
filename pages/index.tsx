@@ -1,10 +1,33 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import useAuth from '../hooks/auth'
+import {useState, useEffect} from 'react';
 import styles from '../styles/Home.module.css'
+
+interface Group {
+  id: string;
+  name: string;
+  owner: string;
+  reads: any[];
+  members: Set<any>;
+}
 
 export default function Home() {
   const {authenticated, logout} = useAuth();
+  const [groups, setGroups] = useState<Group[]>([]);
+
+  useEffect(() => {
+    fetch(
+      'http://localhost:3001/groups/',
+      {
+        headers: {
+          'Authorization': `Bearer ${localStorage.accessToken}`
+        }
+      }
+    ).then(res => res.json())
+    .then(json => setGroups(json))
+    
+  }, [])
 
   return (
     <div className={styles.container}>
@@ -14,8 +37,18 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <h1>Home</h1>
-      { authenticated ? <button onClick={e => logout()}>Logout</button> : <Link href="/login"><a>Sign In</a></Link> }
+      <div>
+        <div>
+          <h1>Home</h1>
+          { authenticated ? 
+            <button onClick={e => logout()}>Logout</button> : 
+            <Link href="/login"><a>Sign In</a></Link> 
+          }
+        </div>
+        <h2>Groups</h2>
+        {/* Get this user's groups */}
+        {groups.map(group => <p>{group.name}</p>)}
+      </div>
     </div>
   )
 }
