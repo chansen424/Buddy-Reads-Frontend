@@ -47,7 +47,7 @@ export default function Home() {
         </div>
         <h2>Groups</h2>
         {/* Get this user's groups */}
-        {groups.map(group => <p>{group.name}</p>)}
+        {groups.map(group => <p key={group.id}>{group.name}</p>)}
       </div>
     </div>
   )
