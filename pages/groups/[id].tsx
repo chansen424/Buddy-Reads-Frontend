@@ -46,7 +46,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       }
     }
 
-    const groupReadsRes = await fetch(`http://localhost:3001/reads/${context.params!.id}`)
+    const groupReadsRes = await fetch(`http://localhost:3001/reads/group/${context.params!.id}`)
     const reads = await groupReadsRes.json()
 
     console.log(reads)

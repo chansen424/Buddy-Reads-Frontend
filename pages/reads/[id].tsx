@@ -1,5 +1,6 @@
 import {GetServerSideProps} from 'next';
 import Head from 'next/head'
+import { FormEvent, useEffect, useState } from 'react';
 import useAuth from '../../hooks/auth';
 import styles from '../../styles/Groups.module.css'
 
@@ -16,11 +17,46 @@ interface ReadPageProps {
     id: string;
     name: string;
     read: string;
-    messages: Message[]
 }
 
-export default function ReadPage({id, name, messages}: ReadPageProps) {
-  const { authenticated } = useAuth();
+export default function ReadPage({id, name}: ReadPageProps) {
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [progressInput, setProgressInput] = useState('');
+  const [progress, setProgress] = useState(0);
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    fetch(
+        'http://localhost:3001/progress/',
+        {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                progress: parseInt(progressInput),
+                read: id
+            })
+        }
+    )
+    .then(res => res.json())
+    .then(data => setProgress(data.progress));
+    setProgressInput('');
+  }
+
+  useEffect(() => {
+    fetch(`http://localhost:3001/messages/${id}`,
+    {
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+        }
+    })
+    .then(res => res.json())
+    .then(data => {
+        data.sort((a: Message, b: Message) => b.progress - a.progress || b.createdAt - a.createdAt)
+        setMessages(data);
+    });
+  }, [progress]);
 
   return (
     <div className={styles.container}>
@@ -32,6 +68,10 @@ export default function ReadPage({id, name, messages}: ReadPageProps) {
 
       <div>
         <h1>{name}</h1>
+        <form onSubmit={onSubmit}>
+            <input value={progressInput} onChange={(e) => setProgressInput(e.target.value)} placeholder="Progress"></input>
+            <button type="submit">Submit</button>
+        </form>
         {messages.map(message => <p key={message.id}>{message.content} - {message.progress}</p>)}
       </div>
         
@@ -49,16 +89,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       }
     }
 
-    const messagesRes = await fetch(`http://localhost:3001/messages/${context.params!.id}`)
-    console.log(messagesRes)
-    const messages = await messagesRes.json()
-    // Sort by progress and then by createdAt
-    messages.sort((a: Message, b: Message) => b.progress - a.progress || b.createdAt - a.createdAt)
-
     return {
       props: {
-          ...read,
-          messages
+          ...read
       },
     }
   }
