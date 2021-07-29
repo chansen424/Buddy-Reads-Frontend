@@ -2,7 +2,7 @@ import Head from 'next/head'
 import {useRouter} from 'next/router'
 import { FormEvent, useState, useEffect } from 'react'
 import useAuth from '../hooks/auth';
-import styles from '../styles/Home.module.css'
+import styles from '../styles/Login.module.css'
 
 export default function Login() {
   const router = useRouter();

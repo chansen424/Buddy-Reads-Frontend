@@ -47,7 +47,7 @@ export default function Home() {
         </div>
         <h2>Groups</h2>
         {/* Get this user's groups */}
-        {groups.map(group => <p key={group.id}>{group.name}</p>)}
+        {groups.map(group => <Link key={group.id} href={`/groups/${group.id}`}><a>{group.name}</a></Link>)}
       </div>
     </div>
   )
