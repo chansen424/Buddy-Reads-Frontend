@@ -33,11 +33,11 @@ export default function Login() {
       </Head>
 
       <div>
-        <h1>Login</h1>
-        <form onSubmit={onSubmit}>
-          <input value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username"></input>
-          <input value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password"></input>
-          <button type="submit">Log In</button>
+        <h1 className={styles.centered}>Login</h1>
+        <form className={styles.form} onSubmit={onSubmit}>
+          <input className={styles.input} value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username"></input>
+          <input className={styles.input} value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password"></input>
+          <button className={styles.loginBtn} type="submit">Log In</button>
         </form>
       </div>
         

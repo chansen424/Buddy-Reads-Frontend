@@ -17,16 +17,17 @@ export default function Home() {
   const [groups, setGroups] = useState<Group[]>([]);
 
   useEffect(() => {
-    fetch(
-      'http://localhost:3001/groups/',
-      {
-        headers: {
-          'Authorization': `Bearer ${localStorage.accessToken}`
+    if (authenticated) {
+      fetch(
+        'http://localhost:3001/groups/',
+        {
+          headers: {
+            'Authorization': `Bearer ${localStorage.accessToken}`
+          }
         }
-      }
-    ).then(res => res.json())
-    .then(json => setGroups(json))
-    
+      ).then(res => res.json())
+      .then(json => setGroups(json));
+    }
   }, [])
 
   return (
@@ -39,15 +40,19 @@ export default function Home() {
 
       <div>
         <div>
-          <h1>Home</h1>
+          <h1 className={styles.centered}>Home</h1>
           { authenticated ? 
-            <button onClick={e => logout()}>Logout</button> : 
-            <Link href="/login"><a>Sign In</a></Link> 
+            <button className={styles.logout} onClick={e => logout()}>Logout</button> : 
+            <Link href="/login"><a className={styles.signin}>Sign In</a></Link> 
           }
         </div>
-        <h2>Groups</h2>
-        {/* Get this user's groups */}
+        {
+          authenticated && <>
+            <h2>Groups</h2>
         {groups.map(group => <Link key={group.id} href={`/groups/${group.id}`}><a>{group.name}</a></Link>)}
+          </>
+        }
+        
       </div>
     </div>
   )

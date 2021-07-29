@@ -23,6 +23,18 @@ export default function ReadPage({id, name}: ReadPageProps) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [progressInput, setProgressInput] = useState('');
   const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    fetch(`http://localhost:3001/progress/${id}`,
+    {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+    }
+    })
+    .then(res => res.json())
+    .then(data => setProgress(data.progress));
+  }, []);
+
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     fetch(
@@ -68,6 +80,7 @@ export default function ReadPage({id, name}: ReadPageProps) {
 
       <div>
         <h1>{name}</h1>
+        <h2>Current Progress - {progress}%</h2>
         <form onSubmit={onSubmit}>
             <input value={progressInput} onChange={(e) => setProgressInput(e.target.value)} placeholder="Progress"></input>
             <button type="submit">Submit</button>
