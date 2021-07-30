@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import useAuth from '../hooks/auth'
-import {useState, useEffect} from 'react';
+import {useState, useEffect, FormEvent} from 'react';
 import styles from '../styles/Home.module.css'
 
 interface Group {
@@ -16,6 +16,25 @@ export default function Home() {
   const {authenticated, logout} = useAuth();
   const [groups, setGroups] = useState<Group[]>([]);
 
+  const [newGroupInput, setNewGroupInput] = useState('');
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    fetch(
+      `http://localhost:3001/groups/`,
+      {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({name: newGroupInput})
+      }
+    )
+    .then(res => res.json())
+    .then(group => setGroups([group, ...groups]))
+    .then(() => setNewGroupInput(''));
+  }
+
   useEffect(() => {
     if (authenticated) {
       fetch(
@@ -28,7 +47,7 @@ export default function Home() {
       ).then(res => res.json())
       .then(json => setGroups(json));
     }
-  }, [])
+  }, [authenticated])
 
   return (
     <div className={styles.container}>
@@ -48,8 +67,12 @@ export default function Home() {
         </div>
         {
           authenticated && <>
+            <form onSubmit={onSubmit}>
+              <input onChange={e => setNewGroupInput(e.target.value)} value={newGroupInput} className={styles.input} placeholder="New Group Name"></input>
+              <button className={styles.groupBtn}>Submit</button>
+            </form>
             <h2>Groups</h2>
-        {groups.map(group => <Link key={group.id} href={`/groups/${group.id}`}><a>{group.name}</a></Link>)}
+        {groups.map(group => <p key={group.id}><Link href={`/groups/${group.id}`}><a>{group.name}</a></Link></p>)}
           </>
         }
         
