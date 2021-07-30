@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
+import Image from "next/image";
 import useAuth from "../hooks/auth";
 import { useState, useEffect, FormEvent } from "react";
 import styles from "../styles/Home.module.css";
@@ -39,6 +40,7 @@ export default function Home() {
       </Head>
 
       <div className={styles.main}>
+        <div className={styles.top}>
         <h1 className={styles.centered}>Home</h1>
         {authenticated ? (
           <button className={styles.logout} onClick={(e) => logout()}>
@@ -49,6 +51,16 @@ export default function Home() {
             <a className={styles.signin}>Sign In</a>
           </Link>
         )}
+        </div>
+
+        {
+          !authenticated &&
+          <>
+            <Image src="/mother-child.png" alt="Mother and Child Reading" width="300" height="300" />
+            <h2 className={styles.tagline}>Read More. Spoil Less.</h2>
+            <p className={styles.copy}>With Buddy Reads, you can read with your friends at your own pace, without the risk of spoilers.</p>
+          </>
+        }
 
         {authenticated && (
           <>

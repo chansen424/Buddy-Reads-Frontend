@@ -5,16 +5,18 @@
 .input {
   padding: 10px 20px;
   margin: 10px 0px;
+  border-radius: 8px;
 }
 
 .loginBtn {
   padding: 10px 20px;
   margin: 10px 0px;
   display: block;
-  background-color: red;
+  background-color: #f64c72;
   border: none;
   border-radius: 8px;
-  color: white;
+  color: #FFF;
+  font-weight: bold;
 }
 
 .centered {

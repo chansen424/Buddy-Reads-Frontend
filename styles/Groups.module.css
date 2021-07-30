@@ -2,19 +2,21 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 10px 20px;
 }
 
 .input {
   display: block;
   margin-bottom: 10px;
   padding: 10px 20px;
+  border-radius: 8px;
 }
 
 .button {
   padding: 10px 20px;
   border: none;
-  background: grey;
-  color: white;
+  background: #99738e;
+  color: #FFF;
   border-radius: 8px;
 }
 
@@ -24,11 +26,11 @@
 }
 
 .readLink:hover {
-  color: red;
+  color: #f64c72;
 }
 
 .message {
-  background-color: antiquewhite;
+  background-color: #f64c72;
   padding: 10px 20px;
   border-radius: 18px;
 }
