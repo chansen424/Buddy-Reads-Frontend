@@ -23,7 +23,8 @@
 .signin {
   padding: 10px 20px;
   background-color: #f64c72;
-  color: white;
+  border-radius: 8px;
+  color: #FFF;
   display: block;
   width: fit-content;
 }
