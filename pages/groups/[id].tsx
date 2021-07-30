@@ -36,7 +36,7 @@ export default function GroupPage({ id, name, reads }: GroupPageProps) {
           <AddRead group={id} />
         </div>
         <div>
-          <h2>Group's Reads</h2>
+          <h2>Group&apos;s Reads</h2>
           {reads.map((read) => (
             <div className={styles.readLink} key={read.id}>
               <Link href={`/reads/${read.id}`}>
