@@ -52,7 +52,7 @@ export default function GroupPage({ id, name, reads }: GroupPageProps) {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const groupRes = await fetch(
-    `http://localhost:3001/groups/${context.params!.id}`
+    `https://buddy-reads-backend.herokuapp.com/groups/${context.params!.id}`
   );
   const group = await groupRes.json();
 
@@ -63,7 +63,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 
   const groupReadsRes = await fetch(
-    `http://localhost:3001/reads/group/${context.params!.id}`
+    `https://buddy-reads-backend.herokuapp.com/reads/group/${context.params!.id}`
   );
   const reads = await groupReadsRes.json();
 

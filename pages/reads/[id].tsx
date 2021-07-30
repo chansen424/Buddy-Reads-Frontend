@@ -29,7 +29,7 @@ export default function ReadPage({ id, name }: ReadPageProps) {
 
   const onMessageSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    fetch("http://localhost:3001/messages", {
+    fetch("https://buddy-reads-backend.herokuapp.com/messages", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -54,7 +54,7 @@ export default function ReadPage({ id, name }: ReadPageProps) {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:3001/progress/${id}`, {
+    fetch(`https://buddy-reads-backend.herokuapp.com/progress/${id}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
@@ -70,7 +70,7 @@ export default function ReadPage({ id, name }: ReadPageProps) {
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    fetch("http://localhost:3001/progress/", {
+    fetch("https://buddy-reads-backend.herokuapp.com/progress/", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -87,7 +87,7 @@ export default function ReadPage({ id, name }: ReadPageProps) {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:3001/messages/${id}`, {
+    fetch(`https://buddy-reads-backend.herokuapp.com/messages/${id}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
@@ -149,7 +149,7 @@ export default function ReadPage({ id, name }: ReadPageProps) {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const readRes = await fetch(
-    `http://localhost:3001/reads/${context.params!.id}`
+    `https://buddy-reads-backend.herokuapp.com/reads/${context.params!.id}`
   );
   const read = await readRes.json();
 

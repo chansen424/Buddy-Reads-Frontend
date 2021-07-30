@@ -5,7 +5,7 @@ const AddGroup = () => {
   const [newGroupInput, setNewGroupInput] = useState("");
   const onSubmitAdd = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    fetch(`http://localhost:3001/groups/`, {
+    fetch(`https://buddy-reads-backend.herokuapp.com/groups/`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,

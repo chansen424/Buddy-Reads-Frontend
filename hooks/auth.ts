@@ -10,7 +10,7 @@ const useAuth = () => {
     let interval: NodeJS.Timer;
     if (localStorage.getItem("refreshToken")) {
       interval = setInterval(async () => {
-        fetch("http://localhost:3001/users/token", {
+        fetch("https://buddy-reads-backend.herokuapp.com/users/token", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -27,7 +27,7 @@ const useAuth = () => {
   }, []);
 
   const login = (username: string, password: string) => {
-    fetch("http://localhost:3001/users/login", {
+    fetch("https://buddy-reads-backend.herokuapp.com/users/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -55,7 +55,7 @@ const useAuth = () => {
   };
 
   const register = (username: string, password: string) => {
-    fetch("http://localhost:3001/users", {
+    fetch("https://buddy-reads-backend.herokuapp.com/users", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

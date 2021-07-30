@@ -5,7 +5,7 @@ const JoinGroup = () => {
   const [joinGroupInput, setJoinGroupInput] = useState("");
   const onSubmitJoin = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    fetch(`http://localhost:3001/groups/${joinGroupInput}`, {
+    fetch(`https://buddy-reads-backend.herokuapp.com/groups/${joinGroupInput}`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,

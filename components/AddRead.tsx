@@ -5,7 +5,7 @@ const AddRead = ({ group }: { group: string }) => {
   const [newReadInput, setNewReadInput] = useState("");
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    fetch(`http://localhost:3001/reads/`, {
+    fetch(`https://buddy-reads-backend.herokuapp.com/reads/`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,

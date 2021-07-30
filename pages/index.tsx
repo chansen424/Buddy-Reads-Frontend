@@ -20,7 +20,7 @@ export default function Home() {
 
   useEffect(() => {
     if (authenticated) {
-      fetch("http://localhost:3001/groups/", {
+      fetch("https://buddy-reads-backend.herokuapp.com/groups/", {
         headers: {
           Authorization: `Bearer ${localStorage.accessToken}`,
         },
