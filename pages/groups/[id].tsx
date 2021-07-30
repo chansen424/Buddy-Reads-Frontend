@@ -1,42 +1,39 @@
-import {GetServerSideProps} from 'next';
-import Head from 'next/head'
-import Link from 'next/link'
-import { FormEvent, useState } from 'react';
-import useAuth from '../../hooks/auth';
-import styles from '../../styles/Groups.module.css'
+import { GetServerSideProps } from "next";
+import Head from "next/head";
+import Link from "next/link";
+import { FormEvent, useState } from "react";
+import useAuth from "../../hooks/auth";
+import styles from "../../styles/Groups.module.css";
 
 interface Read {
-    id: string;
-    group: string;
-    name: string;
+  id: string;
+  group: string;
+  name: string;
 }
 
 interface GroupPageProps {
-    id: string;
-    name: string;
-    reads: Read[]
+  id: string;
+  name: string;
+  reads: Read[];
 }
 
-export default function GroupPage({id, name, reads}: GroupPageProps) {
+export default function GroupPage({ id, name, reads }: GroupPageProps) {
   const { authenticated } = useAuth();
 
-  const [newReadInput, setNewReadInput] = useState('');
+  const [newReadInput, setNewReadInput] = useState("");
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    fetch(
-      `http://localhost:3001/reads/`,
-      {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({name: newReadInput, group: id})
-      }
-    )
-    .then(res => res.json())
-    .then(() => setNewReadInput(''));
-  }
+    fetch(`http://localhost:3001/reads/`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ name: newReadInput, group: id }),
+    })
+      .then((res) => res.json())
+      .then(() => setNewReadInput(""));
+  };
 
   return (
     <div className={styles.container}>
@@ -52,34 +49,46 @@ export default function GroupPage({id, name, reads}: GroupPageProps) {
         <p>{id}</p>
         <h2>Reads</h2>
         <form onSubmit={onSubmit}>
-          <input onChange={e => setNewReadInput(e.target.value)} value={newReadInput} placeholder="New Read Name"></input>
+          <input
+            onChange={(e) => setNewReadInput(e.target.value)}
+            value={newReadInput}
+            placeholder="New Read Name"
+          ></input>
           <button type="submit">Submit</button>
         </form>
-        {reads.map(read => <p key={read.id}><Link href={`/reads/${read.id}`}><a>{read.name}</a></Link></p>)}
+        {reads.map((read) => (
+          <p key={read.id}>
+            <Link href={`/reads/${read.id}`}>
+              <a>{read.name}</a>
+            </Link>
+          </p>
+        ))}
       </div>
-        
     </div>
-  )
+  );
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-    const groupRes = await fetch(`http://localhost:3001/groups/${context.params!.id}`)
-    const group = await groupRes.json()
-  
-    if (group.err) {
-      return {
-        notFound: true,
-      }
-    }
+  const groupRes = await fetch(
+    `http://localhost:3001/groups/${context.params!.id}`
+  );
+  const group = await groupRes.json();
 
-    const groupReadsRes = await fetch(`http://localhost:3001/reads/group/${context.params!.id}`)
-    const reads = await groupReadsRes.json()
-
+  if (group.err) {
     return {
-      props: {
-          ...group,
-          reads
-      },
-    }
+      notFound: true,
+    };
   }
-  
+
+  const groupReadsRes = await fetch(
+    `http://localhost:3001/reads/group/${context.params!.id}`
+  );
+  const reads = await groupReadsRes.json();
+
+  return {
+    props: {
+      ...group,
+      reads,
+    },
+  };
+};

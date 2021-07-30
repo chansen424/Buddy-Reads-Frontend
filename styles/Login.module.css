@@ -1,32 +1,32 @@
 .container {
-    padding: 10px 10px;
+  padding: 10px 10px;
 }
 
 .input {
-    padding: 10px 20px;
-    margin: 10px 0px;
+  padding: 10px 20px;
+  margin: 10px 0px;
 }
 
 .loginBtn {
-    padding: 10px 20px;
-    margin: 10px 0px;
-    display: block;
-    background-color: red;
-    border: none;
-    border-radius: 8px;
-    color: white;
+  padding: 10px 20px;
+  margin: 10px 0px;
+  display: block;
+  background-color: red;
+  border: none;
+  border-radius: 8px;
+  color: white;
 }
 
 .centered {
-    text-align: center;
+  text-align: center;
 }
 
 .formContainer {
-    width: 75%;
-    margin: 0 auto;
+  width: 75%;
+  margin: 0 auto;
 }
 
 .form {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }

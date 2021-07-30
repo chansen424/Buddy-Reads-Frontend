@@ -1,47 +1,46 @@
 .container {
-  
 }
 
 .centered {
-    text-align: center;
+  text-align: center;
 }
 
 .main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .signin {
-    padding: 10px 20px;
-    background-color: red;
-    color: white;
-    margin: 0 auto;
-    display: block;
-    width: fit-content
+  padding: 10px 20px;
+  background-color: red;
+  color: white;
+  margin: 0 auto;
+  display: block;
+  width: fit-content;
 }
 
 .logout {
-    padding: 10px 20px;
-    margin: 10px 0px;
-    display: block;
-    background-color: red;
-    border: none;
-    border-radius: 8px;
-    color: white;
-    width: fit-content;
+  padding: 10px 20px;
+  margin: 10px 0px;
+  display: block;
+  background-color: red;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  width: fit-content;
 }
 
 .input {
-    padding: 10px 20px;
-    display: block;
-    margin-bottom: 10px;
+  padding: 10px 20px;
+  display: block;
+  margin-bottom: 10px;
 }
 
 .groupBtn {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
-    background-color: grey;
-    color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  background-color: grey;
+  color: white;
 }

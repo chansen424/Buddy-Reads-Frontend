@@ -1,10 +1,10 @@
-import Head from 'next/head'
-import Link from 'next/link'
-import useAuth from '../hooks/auth'
-import {useState, useEffect, FormEvent} from 'react';
-import styles from '../styles/Home.module.css'
-import JoinGroup from '../components/JoinGroup';
-import AddGroup from '../components/AddGroup';
+import Head from "next/head";
+import Link from "next/link";
+import useAuth from "../hooks/auth";
+import { useState, useEffect, FormEvent } from "react";
+import styles from "../styles/Home.module.css";
+import JoinGroup from "../components/JoinGroup";
+import AddGroup from "../components/AddGroup";
 
 interface Group {
   id: string;
@@ -15,23 +15,20 @@ interface Group {
 }
 
 export default function Home() {
-  const {authenticated, logout} = useAuth();
+  const { authenticated, logout } = useAuth();
   const [groups, setGroups] = useState<Group[]>([]);
-
 
   useEffect(() => {
     if (authenticated) {
-      fetch(
-        'http://localhost:3001/groups/',
-        {
-          headers: {
-            'Authorization': `Bearer ${localStorage.accessToken}`
-          }
-        }
-      ).then(res => res.json())
-      .then(json => setGroups(json));
+      fetch("http://localhost:3001/groups/", {
+        headers: {
+          Authorization: `Bearer ${localStorage.accessToken}`,
+        },
+      })
+        .then((res) => res.json())
+        .then((json) => setGroups(json));
     }
-  }, [authenticated])
+  }, [authenticated]);
 
   return (
     <div className={styles.container}>
@@ -42,21 +39,31 @@ export default function Home() {
       </Head>
 
       <div className={styles.main}>
-          <h1 className={styles.centered}>Home</h1>
-          { authenticated ? 
-            <button className={styles.logout} onClick={e => logout()}>Logout</button> : 
-            <Link href="/login"><a className={styles.signin}>Sign In</a></Link> 
-          }
-        {
-          authenticated && <>
+        <h1 className={styles.centered}>Home</h1>
+        {authenticated ? (
+          <button className={styles.logout} onClick={(e) => logout()}>
+            Logout
+          </button>
+        ) : (
+          <Link href="/login">
+            <a className={styles.signin}>Sign In</a>
+          </Link>
+        )}
+        {authenticated && (
+          <>
             <JoinGroup />
             <AddGroup />
             <h2>My Groups</h2>
-            {groups.map(group => <p key={group.id}><Link href={`/groups/${group.id}`}><a>{group.name}</a></Link></p>)}
+            {groups.map((group) => (
+              <p key={group.id}>
+                <Link href={`/groups/${group.id}`}>
+                  <a>{group.name}</a>
+                </Link>
+              </p>
+            ))}
           </>
-        }
-        
+        )}
       </div>
     </div>
-  )
+  );
 }

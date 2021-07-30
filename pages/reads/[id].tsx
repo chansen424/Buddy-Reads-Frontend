@@ -1,105 +1,103 @@
-import {GetServerSideProps} from 'next';
-import Head from 'next/head'
-import { FormEvent, useEffect, useState } from 'react';
-import useAuth from '../../hooks/auth';
-import styles from '../../styles/Groups.module.css'
+import { GetServerSideProps } from "next";
+import Head from "next/head";
+import { FormEvent, useEffect, useState } from "react";
+import useAuth from "../../hooks/auth";
+import styles from "../../styles/Groups.module.css";
 
 interface Message {
-    id: string,
-    owner: string,
-    read: string,
-    progress: number,
-    content: string,
-    createdAt: number
+  id: string;
+  owner: string;
+  read: string;
+  progress: number;
+  content: string;
+  createdAt: number;
 }
 
 interface ReadPageProps {
-    id: string;
-    name: string;
-    read: string;
+  id: string;
+  name: string;
+  read: string;
 }
 
-export default function ReadPage({id, name}: ReadPageProps) {
+export default function ReadPage({ id, name }: ReadPageProps) {
   const [messages, setMessages] = useState<Message[]>([]);
-  const [progressInput, setProgressInput] = useState('');
+  const [progressInput, setProgressInput] = useState("");
   const [progress, setProgress] = useState(0);
-  const [messageInput, setMessageInput] = useState('');
+  const [messageInput, setMessageInput] = useState("");
 
   const onMessageSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    fetch(
-      'http://localhost:3001/messages',
-      {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          content: messageInput,
-          progress,
-          read: id
-        })
-      }
-    )
-    .then(res => res.json())
-    .then(message => [message, ...messages])
-    .then(unsortedMessages => {
-      unsortedMessages.sort((a: Message, b: Message) => b.progress - a.progress || b.createdAt - a.createdAt)
-      setMessages(unsortedMessages);
+    fetch("http://localhost:3001/messages", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        content: messageInput,
+        progress,
+        read: id,
+      }),
     })
-    .then(() => setMessageInput(''));
-  }
+      .then((res) => res.json())
+      .then((message) => [message, ...messages])
+      .then((unsortedMessages) => {
+        unsortedMessages.sort(
+          (a: Message, b: Message) =>
+            b.progress - a.progress || b.createdAt - a.createdAt
+        );
+        setMessages(unsortedMessages);
+      })
+      .then(() => setMessageInput(""));
+  };
 
   useEffect(() => {
-    fetch(`http://localhost:3001/progress/${id}`,
-    {
+    fetch(`http://localhost:3001/progress/${id}`, {
       headers: {
-        'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
-    }
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
     })
-    .then(res => {
-      if (res.status === 500) {
-        return { progress: 0 }
-      }
-      return res.json();
-    })
-    .then(data => setProgress(data.progress));
+      .then((res) => {
+        if (res.status === 500) {
+          return { progress: 0 };
+        }
+        return res.json();
+      })
+      .then((data) => setProgress(data.progress));
   }, [id]);
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    fetch(
-        'http://localhost:3001/progress/',
-        {
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                progress: parseInt(progressInput),
-                read: id
-            })
-        }
-    )
-    .then(res => res.json())
-    .then(data => setProgress(data.progress));
-    setProgressInput('');
-  }
+    fetch("http://localhost:3001/progress/", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        progress: parseInt(progressInput),
+        read: id,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => setProgress(data.progress));
+    setProgressInput("");
+  };
 
   useEffect(() => {
-    fetch(`http://localhost:3001/messages/${id}`,
-    {
-        headers: {
-            'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
-        }
+    fetch(`http://localhost:3001/messages/${id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
     })
-    .then(res => res.json())
-    .then(data => {
-        data.sort((a: Message, b: Message) => b.progress - a.progress || b.createdAt - a.createdAt)
+      .then((res) => res.json())
+      .then((data) => {
+        data.sort(
+          (a: Message, b: Message) =>
+            b.progress - a.progress || b.createdAt - a.createdAt
+        );
         setMessages(data);
-    });
+      });
   }, [progress, id]);
 
   return (
@@ -114,35 +112,47 @@ export default function ReadPage({id, name}: ReadPageProps) {
         <h1>{name}</h1>
         <h2>Current Progress - {progress}%</h2>
         <form onSubmit={onSubmit}>
-            <input value={progressInput} onChange={(e) => setProgressInput(e.target.value)} placeholder="Progress"></input>
-            <button type="submit">Submit</button>
+          <input
+            value={progressInput}
+            onChange={(e) => setProgressInput(e.target.value)}
+            placeholder="Progress"
+          ></input>
+          <button type="submit">Submit</button>
         </form>
         <form onSubmit={onMessageSubmit}>
           <h2>Type a message</h2>
-          <input value={messageInput} onChange={e => setMessageInput(e.target.value)} placeholder="Type here"></input>
+          <input
+            value={messageInput}
+            onChange={(e) => setMessageInput(e.target.value)}
+            placeholder="Type here"
+          ></input>
           <button type="submit">Submit</button>
         </form>
-        {messages.map(message => <p key={message.id}>{message.content} - {message.progress}</p>)}
+        {messages.map((message) => (
+          <p key={message.id}>
+            {message.content} - {message.progress}
+          </p>
+        ))}
       </div>
-        
     </div>
-  )
+  );
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-    const readRes = await fetch(`http://localhost:3001/reads/${context.params!.id}`)
-    const read = await readRes.json()
-  
-    if (read.err) {
-      return {
-        notFound: true,
-      }
-    }
+  const readRes = await fetch(
+    `http://localhost:3001/reads/${context.params!.id}`
+  );
+  const read = await readRes.json();
 
+  if (read.err) {
     return {
-      props: {
-          ...read
-      },
-    }
+      notFound: true,
+    };
   }
-  
+
+  return {
+    props: {
+      ...read,
+    },
+  };
+};
