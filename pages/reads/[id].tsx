@@ -33,7 +33,7 @@ export default function ReadPage({id, name}: ReadPageProps) {
     })
     .then(res => res.json())
     .then(data => setProgress(data.progress));
-  }, []);
+  }, [id]);
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -68,7 +68,7 @@ export default function ReadPage({id, name}: ReadPageProps) {
         data.sort((a: Message, b: Message) => b.progress - a.progress || b.createdAt - a.createdAt)
         setMessages(data);
     });
-  }, [progress]);
+  }, [progress, id]);
 
   return (
     <div className={styles.container}>
