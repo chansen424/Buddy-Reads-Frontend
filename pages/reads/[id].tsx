@@ -31,7 +31,12 @@ export default function ReadPage({id, name}: ReadPageProps) {
         'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
     }
     })
-    .then(res => res.json())
+    .then(res => {
+      if (res.status === 500) {
+        return { progress: 0 }
+      }
+      return res.json();
+    })
     .then(data => setProgress(data.progress));
   }, [id]);
 
