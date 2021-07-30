@@ -1,6 +1,7 @@
 import {GetServerSideProps} from 'next';
 import Head from 'next/head'
 import Link from 'next/link'
+import { FormEvent, useState } from 'react';
 import useAuth from '../../hooks/auth';
 import styles from '../../styles/Groups.module.css'
 
@@ -19,6 +20,25 @@ interface GroupPageProps {
 export default function GroupPage({id, name, reads}: GroupPageProps) {
   const { authenticated } = useAuth();
 
+  const [newReadInput, setNewReadInput] = useState('');
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    fetch(
+      `http://localhost:3001/reads/`,
+      {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({name: newReadInput, group: id})
+      }
+    )
+    .then(res => res.json())
+    .then(read => reads = [...reads, read])
+    .then(() => setNewReadInput(''));
+  }
+
   return (
     <div className={styles.container}>
       <Head>
@@ -31,6 +51,11 @@ export default function GroupPage({id, name, reads}: GroupPageProps) {
         <h1>{name}</h1>
         <h2>Join Code</h2>
         <p>{id}</p>
+        <h2>Reads</h2>
+        <form onSubmit={onSubmit}>
+          <input onChange={e => setNewReadInput(e.target.value)} value={newReadInput} placeholder="New Read Name"></input>
+          <button type="submit">Submit</button>
+        </form>
         {reads.map(read => <Link key={read.id} href={`/reads/${read.id}`}><a>{read.name}</a></Link>)}
       </div>
         

@@ -23,5 +23,18 @@
     border: none;
     border-radius: 8px;
     color: white;
+}
 
+.input {
+    padding: 10px 20px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.groupBtn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    background-color: grey;
+    color: white;
 }

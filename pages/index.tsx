@@ -89,13 +89,13 @@ export default function Home() {
             <form onSubmit={onSubmitJoin}>
               <p>Join new group</p>
               <input onChange={e => setJoinGroupInput(e.target.value)} value={joinGroupInput} className={styles.input} placeholder="Group's ID"></input>
-              <button className={styles.groupBtn}>Submit</button>
+              <button type="submit" className={styles.groupBtn}>Submit</button>
             </form>
             {/* Add new group */}
             <form onSubmit={onSubmitAdd}>
               <p>Add new group</p>
               <input onChange={e => setNewGroupInput(e.target.value)} value={newGroupInput} className={styles.input} placeholder="New Group Name"></input>
-              <button className={styles.groupBtn}>Submit</button>
+              <button type="submit" className={styles.groupBtn}>Submit</button>
             </form>
             <h2>My Groups</h2>
         {groups.map(group => <p key={group.id}><Link href={`/groups/${group.id}`}><a>{group.name}</a></Link></p>)}
