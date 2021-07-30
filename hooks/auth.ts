@@ -54,7 +54,17 @@ const useAuth = () => {
     setAuthenticated(false);
   };
 
-  return { authenticated, login, logout };
+  const register = (username: string, password: string) => {
+    fetch("http://localhost:3001/users", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username, password }),
+    });
+  };
+
+  return { authenticated, login, register, logout };
 };
 
 export default useAuth;
