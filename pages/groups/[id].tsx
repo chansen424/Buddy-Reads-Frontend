@@ -56,7 +56,7 @@ export default function GroupPage({id, name, reads}: GroupPageProps) {
           <input onChange={e => setNewReadInput(e.target.value)} value={newReadInput} placeholder="New Read Name"></input>
           <button type="submit">Submit</button>
         </form>
-        {reads.map(read => <Link key={read.id} href={`/reads/${read.id}`}><a>{read.name}</a></Link>)}
+        {reads.map(read => <p key={read.id}><Link href={`/reads/${read.id}`}><a>{read.name}</a></Link></p>)}
       </div>
         
     </div>
