@@ -1,12 +1,12 @@
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 import { FormEvent, useEffect, useState } from "react";
-import useAuth from "../../hooks/auth";
 import styles from "../../styles/Groups.module.css";
 
 interface Message {
   id: string;
   owner: string;
+  username: string;
   read: string;
   progress: number;
   content: string;
@@ -108,29 +108,35 @@ export default function ReadPage({ id, name }: ReadPageProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div>
+      <div className={styles.main}>
         <h1>{name}</h1>
         <h2>Current Progress - {progress}%</h2>
         <form onSubmit={onSubmit}>
           <input
+            className={styles.input}
             value={progressInput}
             onChange={(e) => setProgressInput(e.target.value)}
             placeholder="Progress"
           ></input>
-          <button type="submit">Submit</button>
+          <button className={styles.button} type="submit">
+            Submit
+          </button>
         </form>
         <form onSubmit={onMessageSubmit}>
           <h2>Type a message</h2>
           <input
+            className={styles.input}
             value={messageInput}
             onChange={(e) => setMessageInput(e.target.value)}
             placeholder="Type here"
           ></input>
-          <button type="submit">Submit</button>
+          <button className={styles.button} type="submit">
+            Submit
+          </button>
         </form>
         {messages.map((message) => (
-          <p key={message.id}>
-            {message.content} - {message.progress}
+          <p className={styles.message} key={message.id}>
+            {message.content} - {message.username} {message.progress}%
           </p>
         ))}
       </div>

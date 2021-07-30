@@ -1,0 +1,34 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.input {
+  display: block;
+  margin-bottom: 10px;
+  padding: 10px 20px;
+}
+
+.button {
+  padding: 10px 20px;
+  border: none;
+  background: grey;
+  color: white;
+  border-radius: 8px;
+}
+
+.readLink {
+  font-weight: bold;
+  margin: 10px 0px;
+}
+
+.readLink:hover {
+  color: red;
+}
+
+.message {
+  background-color: antiquewhite;
+  padding: 10px 20px;
+  border-radius: 18px;
+}

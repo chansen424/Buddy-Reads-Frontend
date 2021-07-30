@@ -44,3 +44,8 @@
   background-color: grey;
   color: white;
 }
+
+.groupListing {
+  margin: 10px 0px;
+  font-weight: bold;
+}

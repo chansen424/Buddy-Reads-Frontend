@@ -49,17 +49,19 @@ export default function Home() {
             <a className={styles.signin}>Sign In</a>
           </Link>
         )}
+
         {authenticated && (
           <>
             <JoinGroup />
             <AddGroup />
+
             <h2>My Groups</h2>
             {groups.map((group) => (
-              <p key={group.id}>
+              <div className={styles.groupListing} key={group.id}>
                 <Link href={`/groups/${group.id}`}>
                   <a>{group.name}</a>
                 </Link>
-              </p>
+              </div>
             ))}
           </>
         )}

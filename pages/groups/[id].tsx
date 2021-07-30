@@ -1,8 +1,7 @@
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import { FormEvent, useState } from "react";
-import useAuth from "../../hooks/auth";
+import AddRead from "../../components/AddRead";
 import styles from "../../styles/Groups.module.css";
 
 interface Read {
@@ -18,23 +17,6 @@ interface GroupPageProps {
 }
 
 export default function GroupPage({ id, name, reads }: GroupPageProps) {
-  const { authenticated } = useAuth();
-
-  const [newReadInput, setNewReadInput] = useState("");
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    fetch(`http://localhost:3001/reads/`, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ name: newReadInput, group: id }),
-    })
-      .then((res) => res.json())
-      .then(() => setNewReadInput(""));
-  };
-
   return (
     <div className={styles.container}>
       <Head>
@@ -43,26 +25,26 @@ export default function GroupPage({ id, name, reads }: GroupPageProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div>
+      <div className={styles.main}>
         <h1>{name}</h1>
-        <h2>Join Code</h2>
-        <p>{id}</p>
-        <h2>Reads</h2>
-        <form onSubmit={onSubmit}>
-          <input
-            onChange={(e) => setNewReadInput(e.target.value)}
-            value={newReadInput}
-            placeholder="New Read Name"
-          ></input>
-          <button type="submit">Submit</button>
-        </form>
-        {reads.map((read) => (
-          <p key={read.id}>
-            <Link href={`/reads/${read.id}`}>
-              <a>{read.name}</a>
-            </Link>
-          </p>
-        ))}
+        <div>
+          <h2>Join Code</h2>
+          <p>{id}</p>
+        </div>
+        <div>
+          <h2>Add New Reads</h2>
+          <AddRead group={id} />
+        </div>
+        <div>
+          <h2>Group's Reads</h2>
+          {reads.map((read) => (
+            <div className={styles.readLink} key={read.id}>
+              <Link href={`/reads/${read.id}`}>
+                <a>{read.name}</a>
+              </Link>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
