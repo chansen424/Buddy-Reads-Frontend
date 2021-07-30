@@ -32,7 +32,7 @@ export default function Login() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div>
+      <div className={styles.formContainer}>
         <h1 className={styles.centered}>Login</h1>
         <form className={styles.form} onSubmit={onSubmit}>
           <input className={styles.input} value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username"></input>
