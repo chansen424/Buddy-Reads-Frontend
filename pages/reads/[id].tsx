@@ -23,6 +23,33 @@ export default function ReadPage({id, name}: ReadPageProps) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [progressInput, setProgressInput] = useState('');
   const [progress, setProgress] = useState(0);
+  const [messageInput, setMessageInput] = useState('');
+
+  const onMessageSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    fetch(
+      'http://localhost:3001/messages',
+      {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          content: messageInput,
+          progress,
+          read: id
+        })
+      }
+    )
+    .then(res => res.json())
+    .then(message => [message, ...messages])
+    .then(unsortedMessages => {
+      unsortedMessages.sort((a: Message, b: Message) => b.progress - a.progress || b.createdAt - a.createdAt)
+      setMessages(unsortedMessages);
+    })
+    .then(() => setMessageInput(''));
+  }
 
   useEffect(() => {
     fetch(`http://localhost:3001/progress/${id}`,
@@ -89,6 +116,11 @@ export default function ReadPage({id, name}: ReadPageProps) {
         <form onSubmit={onSubmit}>
             <input value={progressInput} onChange={(e) => setProgressInput(e.target.value)} placeholder="Progress"></input>
             <button type="submit">Submit</button>
+        </form>
+        <form onSubmit={onMessageSubmit}>
+          <h2>Type a message</h2>
+          <input value={messageInput} onChange={e => setMessageInput(e.target.value)} placeholder="Type here"></input>
+          <button type="submit">Submit</button>
         </form>
         {messages.map(message => <p key={message.id}>{message.content} - {message.progress}</p>)}
       </div>
