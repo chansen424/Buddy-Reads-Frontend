@@ -16,8 +16,26 @@ export default function Home() {
   const {authenticated, logout} = useAuth();
   const [groups, setGroups] = useState<Group[]>([]);
 
+  const [joinGroupInput, setJoinGroupInput] = useState('');
+  const onSubmitJoin = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    fetch(
+      `http://localhost:3001/groups/${joinGroupInput}`,
+      {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+          'Content-Type': 'application/json'
+        }
+      }
+    )
+    .then(res => res.json())
+    .then(group => setGroups([group, ...groups]))
+    .then(() => setJoinGroupInput(''));
+  }
+
   const [newGroupInput, setNewGroupInput] = useState('');
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const onSubmitAdd = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     fetch(
       `http://localhost:3001/groups/`,
@@ -67,11 +85,19 @@ export default function Home() {
         </div>
         {
           authenticated && <>
-            <form onSubmit={onSubmit}>
+            {/* Join new group */}
+            <form onSubmit={onSubmitJoin}>
+              <p>Join new group</p>
+              <input onChange={e => setJoinGroupInput(e.target.value)} value={joinGroupInput} className={styles.input} placeholder="Group's ID"></input>
+              <button className={styles.groupBtn}>Submit</button>
+            </form>
+            {/* Add new group */}
+            <form onSubmit={onSubmitAdd}>
+              <p>Add new group</p>
               <input onChange={e => setNewGroupInput(e.target.value)} value={newGroupInput} className={styles.input} placeholder="New Group Name"></input>
               <button className={styles.groupBtn}>Submit</button>
             </form>
-            <h2>Groups</h2>
+            <h2>My Groups</h2>
         {groups.map(group => <p key={group.id}><Link href={`/groups/${group.id}`}><a>{group.name}</a></Link></p>)}
           </>
         }
