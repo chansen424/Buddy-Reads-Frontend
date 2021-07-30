@@ -35,7 +35,6 @@ export default function GroupPage({id, name, reads}: GroupPageProps) {
       }
     )
     .then(res => res.json())
-    .then(read => reads = [...reads, read])
     .then(() => setNewReadInput(''));
   }
 
