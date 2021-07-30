@@ -1,6 +1,8 @@
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 import { FormEvent, useEffect, useState } from "react";
+import differenceInSeconds from 'date-fns/differenceInSeconds';
+import parseISO from 'date-fns/parseISO';
 import styles from "../../styles/Groups.module.css";
 
 interface Message {
@@ -10,7 +12,7 @@ interface Message {
   read: string;
   progress: number;
   content: string;
-  createdAt: number;
+  createdAt: string;
 }
 
 interface ReadPageProps {
@@ -44,7 +46,7 @@ export default function ReadPage({ id, name }: ReadPageProps) {
       .then((unsortedMessages) => {
         unsortedMessages.sort(
           (a: Message, b: Message) =>
-            b.progress - a.progress || b.createdAt - a.createdAt
+            b.progress - a.progress
         );
         setMessages(unsortedMessages);
       })
@@ -93,8 +95,9 @@ export default function ReadPage({ id, name }: ReadPageProps) {
       .then((res) => res.json())
       .then((data) => {
         data.sort(
-          (a: Message, b: Message) =>
-            b.progress - a.progress || b.createdAt - a.createdAt
+          (a: Message, b: Message) => {
+            return b.progress - a.progress || differenceInSeconds(parseISO(b.createdAt), parseISO(a.createdAt))
+          }
         );
         setMessages(data);
       });
