@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import styles from "../styles/Home.module.css";
 import JoinGroup from "../components/JoinGroup";
 import AddGroup from "../components/AddGroup";
+import classnames from "classnames";
 
 interface Group {
   id: string;
@@ -38,7 +39,12 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className={styles.main}>
+      <div
+        className={classnames(styles.main, {
+          [styles.justifyEnd]: !authenticated,
+          [styles.justifyCenter]: !authenticated
+        })}
+      >
         {!authenticated && (
           <>
             <div className={styles.circle}></div>
