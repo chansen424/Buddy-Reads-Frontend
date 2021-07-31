@@ -22,16 +22,20 @@ const JoinGroup = () => {
 
   return (
     <form onSubmit={onSubmitJoin}>
-      <p>Join new group</p>
-      <input
-        onChange={(e) => setJoinGroupInput(e.target.value)}
-        value={joinGroupInput}
-        className={styles.input}
-        placeholder="Group's ID"
-      ></input>
-      <button type="submit" className={styles.groupBtn}>
-        Submit
-      </button>
+      <h2>Join Group</h2>
+      <label htmlFor="group-id">Group ID</label>
+      <div className={styles.inputContainer}>
+        <input
+          id="group-id"
+          onChange={(e) => setJoinGroupInput(e.target.value)}
+          value={joinGroupInput}
+          className={styles.input}
+          placeholder="Group ID"
+        ></input>
+        <button type="submit" className={styles.groupBtn}>
+          Submit
+        </button>
+      </div>
     </form>
   );
 };

@@ -48,28 +48,42 @@
   max-width: 50ch;
 }
 
+.inputContainer {
+  margin-top: 10px;
+}
+
 .input {
   padding: 10px 20px;
-  display: block;
   margin-bottom: 10px;
   border-radius: 8px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+  border: none;
+  font-weight: bold;
 }
 
 .groupBtn {
   padding: 10px 20px;
   border: none;
   border-radius: 8px;
-  background-color: #99738e;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  background-color: #f64c72;
   color: #fff;
 }
 
-.groupListing {
-  margin: 10px 0px;
-  font-weight: bold;
+.groupsHeader {
+  font-size: 36px;
 }
 
-.groupListing:hover {
+.groupListing {
+  width: fit-content;
+  background-color: #FFF;
+  margin: 10px 0px;
+  padding: 10px 20px;
+  border-radius: 8px;
   color: #f64c72;
+  font-weight: bold;
 }
 
 .circle {
@@ -97,5 +111,11 @@
 
   .justifyCenter {
     justify-content: center;
+  }
+
+  .flexRow {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
   }
 }

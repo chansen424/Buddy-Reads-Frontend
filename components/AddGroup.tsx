@@ -20,16 +20,20 @@ const AddGroup = () => {
 
   return (
     <form onSubmit={onSubmitAdd}>
-      <p>Add new group</p>
-      <input
-        onChange={(e) => setNewGroupInput(e.target.value)}
-        value={newGroupInput}
-        className={styles.input}
-        placeholder="New Group Name"
-      ></input>
-      <button type="submit" className={styles.groupBtn}>
-        Submit
-      </button>
+      <h2>Add Group</h2>
+      <label htmlFor="group-name">Group Name</label>
+      <div className={styles.inputContainer}>
+        <input
+          id="group-name"
+          onChange={(e) => setNewGroupInput(e.target.value)}
+          value={newGroupInput}
+          className={styles.input}
+          placeholder="New Group Name"
+        ></input>
+        <button type="submit" className={styles.groupBtn}>
+          Submit
+        </button>
+      </div>
     </form>
   );
 };

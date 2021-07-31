@@ -42,7 +42,8 @@ export default function Home() {
       <div
         className={classnames(styles.main, {
           [styles.justifyEnd]: !authenticated,
-          [styles.justifyCenter]: !authenticated
+          [styles.justifyCenter]: !authenticated,
+          [styles.flexRow]: authenticated,
         })}
       >
         {!authenticated && (
@@ -64,20 +65,23 @@ export default function Home() {
 
         {authenticated && (
           <>
-            <button className={styles.logout} onClick={(e) => logout()}>
-              Logout
-            </button>
-            <JoinGroup />
-            <AddGroup />
-
-            <h2>My Groups</h2>
-            {groups.map((group) => (
-              <div className={styles.groupListing} key={group.id}>
-                <Link href={`/groups/${group.id}`}>
-                  <a>{group.name}</a>
-                </Link>
-              </div>
-            ))}
+            <div>
+              <button className={styles.logout} onClick={(e) => logout()}>
+                Logout
+              </button>
+              <JoinGroup />
+              <AddGroup />
+            </div>
+            <div>
+              <h1 className={styles.groupsHeader}>My Groups</h1>
+              {groups.map((group) => (
+                <div className={styles.groupListing} key={group.id}>
+                  <Link href={`/groups/${group.id}`}>
+                    <a>{group.name}</a>
+                  </Link>
+                </div>
+              ))}
+            </div>
           </>
         )}
       </div>
