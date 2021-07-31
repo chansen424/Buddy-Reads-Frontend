@@ -12,6 +12,12 @@
   border-radius: 8px;
 }
 
+.messageInput {
+  padding: 10px 20px;
+  border-radius: 8px;
+  width: 80%;
+}
+
 .button {
   padding: 10px 20px;
   border: none;
@@ -29,8 +35,32 @@
   color: #f64c72;
 }
 
+.messagesForm {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.messages {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding: 20px 0px 30px;
+}
+
 .message {
   background-color: #f64c72;
   padding: 10px 20px;
   border-radius: 18px;
+  max-width: 500px;
+}
+
+.topContainer {
+  position: sticky;
+  top: 0;
+  background-color: #2f2fa2;
 }

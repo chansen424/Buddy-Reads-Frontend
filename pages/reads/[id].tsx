@@ -112,6 +112,7 @@ export default function ReadPage({ id, name }: ReadPageProps) {
       </Head>
 
       <div className={styles.main}>
+        <div className={styles.topContainer}>
         <h1>{name}</h1>
         <h2>Current Progress - {progress}%</h2>
         <form onSubmit={onSubmit}>
@@ -125,10 +126,10 @@ export default function ReadPage({ id, name }: ReadPageProps) {
             Submit
           </button>
         </form>
-        <form onSubmit={onMessageSubmit}>
-          <h2>Type a message</h2>
+        </div>
+        <form className={styles.messagesForm} onSubmit={onMessageSubmit}>
           <input
-            className={styles.input}
+            className={styles.messageInput}
             value={messageInput}
             onChange={(e) => setMessageInput(e.target.value)}
             placeholder="Type here"
@@ -137,11 +138,13 @@ export default function ReadPage({ id, name }: ReadPageProps) {
             Submit
           </button>
         </form>
+        <div className={styles.messages}>
         {messages.map((message) => (
           <p className={styles.message} key={message.id}>
             {message.content} - {message.username} {message.progress}%
           </p>
         ))}
+        </div>
       </div>
     </div>
   );
