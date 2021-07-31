@@ -41,6 +41,8 @@ export default function Home() {
       <div className={styles.main}>
         {!authenticated && (
           <>
+            <div className={styles.circle}></div>
+            <div>
             <Link href="/login">
               <a className={styles.signin}>Sign In</a>
             </Link>
@@ -50,6 +52,7 @@ export default function Home() {
               Perfect for bookclubs, chatting about movies, and anything else
               you want spoiler-free.
             </p>
+            </div>
           </>
         )}
 
