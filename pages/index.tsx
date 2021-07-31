@@ -43,15 +43,15 @@ export default function Home() {
           <>
             <div className={styles.circle}></div>
             <div>
-            <Link href="/login">
-              <a className={styles.signin}>Sign In</a>
-            </Link>
-            <h1 className={styles.heading}>BuddyReads</h1>
-            <h2 className={styles.tagline}>Read More. Spoil Less.</h2>
-            <p className={styles.copy}>
-              Perfect for bookclubs, chatting about movies, and anything else
-              you want spoiler-free.
-            </p>
+              <Link href="/login">
+                <a className={styles.signin}>Sign In</a>
+              </Link>
+              <h1 className={styles.heading}>BuddyReads</h1>
+              <h2 className={styles.tagline}>Read More. Spoil Less.</h2>
+              <p className={styles.copy}>
+                Perfect for bookclubs, chatting about movies, and anything else
+                you want spoiler-free.
+              </p>
             </div>
           </>
         )}
@@ -59,8 +59,8 @@ export default function Home() {
         {authenticated && (
           <>
             <button className={styles.logout} onClick={(e) => logout()}>
-            Logout
-          </button>
+              Logout
+            </button>
             <JoinGroup />
             <AddGroup />
 

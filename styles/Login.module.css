@@ -6,6 +6,7 @@
   padding: 10px 20px;
   margin: 10px 0px;
   border-radius: 8px;
+  border: none;
 }
 
 .loginBtn {
@@ -21,10 +22,16 @@
 }
 
 .formContainer {
-  width: min(75%, 500px);
+  width: min(100%, 500px);
 }
 
 .form {
   display: flex;
   flex-direction: column;
+}
+
+@media (min-width: 640px) {
+  .formContainer {
+    margin: 0 auto;
+  }
 }

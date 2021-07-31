@@ -45,13 +45,17 @@ export default function Login() {
       <div className={styles.formContainer}>
         <h1>Login</h1>
         <form className={styles.form} onSubmit={onSubmit}>
+          <label htmlFor="username">Username</label>
           <input
+            id="username"
             className={styles.input}
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             placeholder="Username"
           ></input>
+          <label htmlFor="password">Password</label>
           <input
+            id="password"
             className={styles.input}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -64,13 +68,17 @@ export default function Login() {
 
         <h1>Register</h1>
         <form className={styles.form} onSubmit={onSubmitRegister}>
+          <label htmlFor="register-username">Username</label>
           <input
+            id="register-username"
             className={styles.input}
             value={registerUsername}
             onChange={(e) => setRegisterUsername(e.target.value)}
             placeholder="Username"
           ></input>
+          <label htmlFor="register-password">Password</label>
           <input
+            id="register-password"
             className={styles.input}
             value={registerPassword}
             onChange={(e) => setRegisterPassword(e.target.value)}
