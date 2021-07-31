@@ -24,7 +24,7 @@
 }
 
 .formContainer {
-  width: 75%;
+  width: min(75%, 500px);
   margin: 0 auto;
 }
 
