@@ -1,32 +1,26 @@
 .container {
 }
 
-.centered {
-  text-align: center;
+.heading {
+  margin-bottom: 1rem;
+  font-size: 48px;
 }
 
 .main {
   display: flex;
   flex-direction: column;
-  align-items: center;
-}
-
-.top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 20px;
-  margin-bottom: 50px;
-  width: 100%;
+  padding: 2rem 1rem;
 }
 
 .signin {
-  padding: 10px 20px;
+  padding: 10px 25px;
+  text-transform: uppercase;
   background-color: #f64c72;
-  border-radius: 8px;
-  color: #FFF;
+  border-radius: 21px;
+  color: #fff;
   display: block;
   width: fit-content;
+  margin-bottom: 1.5rem;
 }
 
 .logout {
@@ -35,17 +29,18 @@
   display: block;
   background-color: #f64c72;
   border: none;
-  border-radius: 8px;
+  border-radius: 21px;
   color: white;
+  text-transform: uppercase;
   width: fit-content;
 }
 
 .tagline {
-  margin-top: 40px;
+  width: 150px;
 }
 
 .copy {
-  padding: 0 20px;
+  max-width: 50ch;
 }
 
 .input {
@@ -60,7 +55,7 @@
   border: none;
   border-radius: 8px;
   background-color: #99738e;
-  color: #FFF;
+  color: #fff;
 }
 
 .groupListing {

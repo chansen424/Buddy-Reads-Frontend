@@ -43,7 +43,7 @@ export default function Login() {
       </Head>
 
       <div className={styles.formContainer}>
-        <h1 className={styles.centered}>Login</h1>
+        <h1>Login</h1>
         <form className={styles.form} onSubmit={onSubmit}>
           <input
             className={styles.input}
@@ -62,7 +62,7 @@ export default function Login() {
           </button>
         </form>
 
-        <h1 className={styles.centered}>Register</h1>
+        <h1>Register</h1>
         <form className={styles.form} onSubmit={onSubmitRegister}>
           <input
             className={styles.input}

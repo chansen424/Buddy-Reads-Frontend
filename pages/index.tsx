@@ -1,8 +1,7 @@
 import Head from "next/head";
 import Link from "next/link";
-import Image from "next/image";
 import useAuth from "../hooks/auth";
-import { useState, useEffect, FormEvent } from "react";
+import { useState, useEffect } from "react";
 import styles from "../styles/Home.module.css";
 import JoinGroup from "../components/JoinGroup";
 import AddGroup from "../components/AddGroup";
@@ -40,30 +39,25 @@ export default function Home() {
       </Head>
 
       <div className={styles.main}>
-        <div className={styles.top}>
-        <h1 className={styles.centered}>Home</h1>
-        {authenticated ? (
-          <button className={styles.logout} onClick={(e) => logout()}>
-            Logout
-          </button>
-        ) : (
-          <Link href="/login">
-            <a className={styles.signin}>Sign In</a>
-          </Link>
-        )}
-        </div>
-
-        {
-          !authenticated &&
+        {!authenticated && (
           <>
-            <Image src="/mother-child.png" alt="Mother and Child Reading" width="300" height="300" />
+            <Link href="/login">
+              <a className={styles.signin}>Sign In</a>
+            </Link>
+            <h1 className={styles.heading}>BuddyReads</h1>
             <h2 className={styles.tagline}>Read More. Spoil Less.</h2>
-            <p className={styles.copy}>With Buddy Reads, you can read with your friends at your own pace, without the risk of spoilers.</p>
+            <p className={styles.copy}>
+              Perfect for bookclubs, chatting about movies, and anything else
+              you want spoiler-free.
+            </p>
           </>
-        }
+        )}
 
         {authenticated && (
           <>
+            <button className={styles.logout} onClick={(e) => logout()}>
+            Logout
+          </button>
             <JoinGroup />
             <AddGroup />
 

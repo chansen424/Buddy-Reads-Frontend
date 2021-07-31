@@ -1,8 +1,8 @@
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 import { FormEvent, useEffect, useState } from "react";
-import differenceInSeconds from 'date-fns/differenceInSeconds';
-import parseISO from 'date-fns/parseISO';
+import differenceInSeconds from "date-fns/differenceInSeconds";
+import parseISO from "date-fns/parseISO";
 import styles from "../../styles/Groups.module.css";
 
 interface Message {
@@ -45,8 +45,7 @@ export default function ReadPage({ id, name }: ReadPageProps) {
       .then((message) => [message, ...messages])
       .then((unsortedMessages) => {
         unsortedMessages.sort(
-          (a: Message, b: Message) =>
-            b.progress - a.progress
+          (a: Message, b: Message) => b.progress - a.progress
         );
         setMessages(unsortedMessages);
       })
@@ -94,11 +93,12 @@ export default function ReadPage({ id, name }: ReadPageProps) {
     })
       .then((res) => res.json())
       .then((data) => {
-        data.sort(
-          (a: Message, b: Message) => {
-            return b.progress - a.progress || differenceInSeconds(parseISO(b.createdAt), parseISO(a.createdAt))
-          }
-        );
+        data.sort((a: Message, b: Message) => {
+          return (
+            b.progress - a.progress ||
+            differenceInSeconds(parseISO(b.createdAt), parseISO(a.createdAt))
+          );
+        });
         setMessages(data);
       });
   }, [progress, id]);
@@ -113,19 +113,19 @@ export default function ReadPage({ id, name }: ReadPageProps) {
 
       <div className={styles.main}>
         <div className={styles.topContainer}>
-        <h1>{name}</h1>
-        <h2>Current Progress - {progress}%</h2>
-        <form onSubmit={onSubmit}>
-          <input
-            className={styles.input}
-            value={progressInput}
-            onChange={(e) => setProgressInput(e.target.value)}
-            placeholder="Progress"
-          ></input>
-          <button className={styles.button} type="submit">
-            Submit
-          </button>
-        </form>
+          <h1>{name}</h1>
+          <h2>Current Progress - {progress}%</h2>
+          <form onSubmit={onSubmit}>
+            <input
+              className={styles.input}
+              value={progressInput}
+              onChange={(e) => setProgressInput(e.target.value)}
+              placeholder="Progress"
+            ></input>
+            <button className={styles.button} type="submit">
+              Submit
+            </button>
+          </form>
         </div>
         <form className={styles.messagesForm} onSubmit={onMessageSubmit}>
           <input
@@ -139,11 +139,11 @@ export default function ReadPage({ id, name }: ReadPageProps) {
           </button>
         </form>
         <div className={styles.messages}>
-        {messages.map((message) => (
-          <p className={styles.message} key={message.id}>
-            {message.content} - {message.username} {message.progress}%
-          </p>
-        ))}
+          {messages.map((message) => (
+            <p className={styles.message} key={message.id}>
+              {message.content} - {message.username} {message.progress}%
+            </p>
+          ))}
         </div>
       </div>
     </div>

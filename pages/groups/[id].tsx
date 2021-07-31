@@ -63,7 +63,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 
   const groupReadsRes = await fetch(
-    `https://buddy-reads-backend.herokuapp.com/reads/group/${context.params!.id}`
+    `https://buddy-reads-backend.herokuapp.com/reads/group/${
+      context.params!.id
+    }`
   );
   const reads = await groupReadsRes.json();
 

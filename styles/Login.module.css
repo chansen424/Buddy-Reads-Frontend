@@ -1,5 +1,5 @@
 .container {
-  padding: 10px 10px;
+  padding: 20px 20px;
 }
 
 .input {
@@ -14,18 +14,14 @@
   display: block;
   background-color: #f64c72;
   border: none;
-  border-radius: 8px;
-  color: #FFF;
+  border-radius: 21px;
+  color: #fff;
+  width: fit-content;
   font-weight: bold;
-}
-
-.centered {
-  text-align: center;
 }
 
 .formContainer {
   width: min(75%, 500px);
-  margin: 0 auto;
 }
 
 .form {
