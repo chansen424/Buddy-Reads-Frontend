@@ -50,6 +50,15 @@ const useAuth = () => {
   };
 
   const logout = () => {
+    const refreshToken = localStorage.getItem('refreshToken');
+    fetch('https://buddy-reads-backend.herokuapp.com/logout',
+    {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ token: refreshToken })
+    });
     localStorage.clear();
     setAuthenticated(false);
   };
