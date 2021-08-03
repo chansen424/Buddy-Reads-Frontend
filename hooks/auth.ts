@@ -8,7 +8,7 @@ const useAuth = () => {
 
   useEffect(() => {
     let interval: NodeJS.Timer;
-    if (localStorage.getItem("refreshToken")) {
+    if (authenticated && localStorage.getItem("refreshToken")) {
       interval = setInterval(async () => {
         fetch("https://buddy-reads-backend.herokuapp.com/users/token", {
           method: "POST",
@@ -18,7 +18,9 @@ const useAuth = () => {
           body: JSON.stringify({
             token: localStorage.getItem("refreshToken"),
           }),
-        }).then((res) => res.json());
+        })
+        .then((res) => res.json())
+        .then(data => localStorage.setItem('accessToken', data.accessToken));
       }, 60 * 60 * 1000);
     }
     return () => {
