@@ -39,7 +39,7 @@ const useAuth = () => {
     return () => {
       clearInterval(interval);
     };
-  }, []);
+  }, [authenticated]);
 
   const login = (username: string, password: string) => {
     fetch("https://buddy-reads-backend.herokuapp.com/users/login", {
