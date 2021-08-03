@@ -9,6 +9,17 @@ const useAuth = () => {
   useEffect(() => {
     let interval: NodeJS.Timer;
     if (authenticated && localStorage.getItem("refreshToken")) {
+      fetch("https://buddy-reads-backend.herokuapp.com/users/token", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          token: localStorage.getItem("refreshToken"),
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => localStorage.setItem("accessToken", data.accessToken));
       interval = setInterval(async () => {
         fetch("https://buddy-reads-backend.herokuapp.com/users/token", {
           method: "POST",
@@ -19,8 +30,10 @@ const useAuth = () => {
             token: localStorage.getItem("refreshToken"),
           }),
         })
-        .then((res) => res.json())
-        .then(data => localStorage.setItem('accessToken', data.accessToken));
+          .then((res) => res.json())
+          .then((data) =>
+            localStorage.setItem("accessToken", data.accessToken)
+          );
       }, 60 * 60 * 1000);
     }
     return () => {
@@ -52,14 +65,13 @@ const useAuth = () => {
   };
 
   const logout = () => {
-    const refreshToken = localStorage.getItem('refreshToken');
-    fetch('https://buddy-reads-backend.herokuapp.com/logout',
-    {
-      method: 'POST',
+    const refreshToken = localStorage.getItem("refreshToken");
+    fetch("https://buddy-reads-backend.herokuapp.com/logout", {
+      method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify({ token: refreshToken })
+      body: JSON.stringify({ token: refreshToken }),
     });
     localStorage.clear();
     setAuthenticated(false);
